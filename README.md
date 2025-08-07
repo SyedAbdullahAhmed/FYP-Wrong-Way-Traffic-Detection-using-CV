@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # 🚦 Wrong-Way Vehicle Detection System using YOLOv8, OpenCV, and Flask
 
 A real-time computer vision-based solution to detect wrong-way vehicle movement on single and dual-lane roads. This system is powered by a custom-trained YOLOv8 model and utilizes OpenCV for video processing, Flask for the backend server, and MongoDB for data storage.
