@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#0d151c]">
+            <div class="size-4">
+             
+            </div>
+            <h2 class="text-[#0d151c] text-lg font-bold leading-tight tracking-[-0.015em]">Wrong Way Vehicle Detection</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/">Home</a>
+              <a class="text-[#101518] text-sm font-medium leading-normal"  href="/live">Live Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/twolane">Two Lane Detection</a>
+             
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/challen">Challen</a>
+   
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/roboflow">Upload Robflow</a>   
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>
+            
+            </div>
+           
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#0d151c] tracking-light text-[32px] font-bold leading-tight">Project Diagrams</p>
+                <p class="text-[#49749c] text-sm font-normal leading-normal">
+                  Explore the architectural blueprints of DriveSafe through our comprehensive diagrams. These visuals detail the system's structure, interactions, and data
+                  relationships, providing a deeper understanding of its functionality.
+                </p>
+              </div>
+            </div>
+            <h2 class="text-[#0d151c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Flow Diagram (ERD)</h2>
+            <div class="flex w-full grow bg-slate-50 @container p-4">
+              <div class="w-full gap-1 overflow-hidden bg-slate-50 @[480px]:gap-2 aspect-[3/2] rounded-xl flex">
+                <div
+                  class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
+                  style='background-image: url("/static/diagrams/flowdigram.png");'
+                ></div>
+              </div>
+            </div>
+            <p class="text-[#0d151c] text-base font-normal leading-normal pb-3 pt-1 px-4">
+              The ERD illustrates the database schema, highlighting entities such as users, trips, alerts, and locations, and their relationships. This design ensures efficient
+              data management and retrieval for the app's core features.
+            </p>
+            <h2 class="text-[#0d151c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Sequence Diagrams</h2>
+            <div class="flex w-full grow bg-slate-50 @container p-4">
+              <div class="w-full gap-1 overflow-hidden bg-slate-50 @[480px]:gap-2 aspect-[3/2] rounded-xl flex">
+                <div
+                  class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
+                  style='background-image: url("/static/diagrams/sequence.png");'
+                ></div>
+              </div>
+            </div>
+            <p class="text-[#0d151c] text-base font-normal leading-normal pb-3 pt-1 px-4">
+              Sequence diagrams detail the interactions between different components of the system, such as the user interface, backend services, and external APIs. These diagrams
+              clarify the flow of operations during critical processes like trip initiation, wrong-way detection, and alert delivery.
+            </p>
+            <h2 class="text-[#0d151c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Class Diagrams</h2>
+            <div class="flex w-full grow bg-slate-50 @container p-4">
+              <div class="w-full gap-1 overflow-hidden bg-slate-50 @[480px]:gap-2 aspect-[3/2] rounded-xl flex">
+                <div
+                  class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
+                  style='background-image: url("/static/diagrams/classdigram.png");'
+                ></div>
+              </div>
+            </div>
+            <p class="text-[#0d151c] text-base font-normal leading-normal pb-3 pt-1 px-4">
+              Class diagrams outline the structure of the software, defining classes, their attributes, and methods. This view helps understand the organization of the codebase and
+              the responsibilities of different software modules within the DriveSafe application.
+            </p>
+            
+          </div>
+        </div>
+        <footer class="flex justify-center">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/">Home</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/live">Live Detection</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/challen">Challen</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/diagram">Diagrams</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/roboflow">Upload Robflow</a>
+              </div>
+              <p class="text-[#49749c] text-base font-normal leading-normal">@2025 DriveSafe. All rights reserved.</p>
+            </footer>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

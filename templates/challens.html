@@ -1,0 +1,342 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Wrong Way Vehicle Detection</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#101518]">
+            <div class="size-4">
+             
+            </div>
+            <h2 class="text-[#101518] text-lg font-bold leading-tight tracking-[-0.015em]">Wrong Way Vehicle Detection</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/">Home</a>
+             <a class="text-[#101518] text-sm font-medium leading-normal"  href="/live">Live Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/twolane">Two Lane Detection</a>
+              
+             <a class="text-[#101518] text-sm font-medium leading-normal" href="/challen">Challen</a>
+           
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/roboflow">Upload Robflow</a>     
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>
+            
+            </div>
+           
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#101518] tracking-light text-[32px] font-bold leading-tight">Challenge Management</p>
+                <p class="text-[#5c748a] text-sm font-normal leading-normal">Manage and export challenge data for the RoadWise Wrong Way Detection project.</p>
+              </div>
+            </div>
+            <div class="flex justify-stretch">
+              <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-start">
+                <form action="/createchallenpdfcsv" method="post">
+                  <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#eaedf1] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]"
+                    type="submit"
+                  >
+                    <span class="truncate">Export to CSV</span>
+                  </button>
+                </form>
+                  <form action="/generate_challans" method="post">
+                    <button type="submit"
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#eaedf1] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                  <span class="truncate">Generate PDFs</span>
+                </button>
+            <!-- <button type="submit"><i class="fas fa-file-pdf"></i> Generate Challans</button> -->
+        </form>
+               <form method="get" action="/challen">
+  <label for="filter_date">Select Date:</label>
+        <input type="date" id="filter_date"
+        
+   name="filter_date" value="{{ filter_date }}">
+  <button type="submit">Filter</button>
+</form>
+                
+              </div>
+            </div>
+            <div class="px-4 py-3 @container">
+              <div class="flex overflow-hidden rounded-xl border border-[#d4dce2] bg-gray-50">
+                <table class="flex-1">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 px-4 py-3 text-left text-[#101518] w-[400px] text-sm font-medium leading-normal">
+                        Challenge ID
+                      </th>
+                      <th class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 px-4 py-3 text-left text-[#101518] w-[400px] text-sm font-medium leading-normal">Date</th>
+                      <th class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 px-4 py-3 text-left text-[#101518] w-[400px] text-sm font-medium leading-normal">
+                        Location
+                      </th>
+                      <th class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 px-4 py-3 text-left text-[#101518] w-60 text-sm font-medium leading-normal">Status</th>
+                      <th class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 px-4 py-3 text-left text-[#101518] w-60 text-[#5c748a] text-sm font-medium leading-normal">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+  {% for row in data %}
+  <tr class="border-t border-t-[#d4dce2]">
+    <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">
+      {{ row['track_id'] }}
+    </td>
+    <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+     
+      {{ row['date'] | default('Unknown Date', true) }}
+    </td>
+    <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+     {{ row['location'] | default('Unknown Location', true) }}
+    </td>
+    <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+      <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full">
+        <span class="truncate">{{ row['is_challan_generated'] }}</span>
+      </button>
+    </td>
+    <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+       <a href="{{ url_for('download_challan_pdf', trackid=row['track_id']) }}" download>
+        Download Challenge
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</tbody>
+                  <!-- <tbody>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12345</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-26
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection A
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Active</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12346</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-25
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection B
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Resolved</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12347</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-24
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection C
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Active</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12348</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-23
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection D
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Resolved</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12349</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-22
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection E
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Active</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12350</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-21
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection F
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Resolved</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12351</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-20
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection G
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Active</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12352</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-19
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection H
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Resolved</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12353</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-18
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection I
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Active</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#d4dce2]">
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#101518] text-sm font-normal leading-normal">#12354</td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        2024-07-17
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360 h-[72px] px-4 py-2 w-[400px] text-[#5c748a] text-sm font-normal leading-normal">
+                        Intersection J
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                        <button
+                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#eaedf1] text-[#101518] text-sm font-medium leading-normal w-full"
+                        >
+                          <span class="truncate">Resolved</span>
+                        </button>
+                      </td>
+                      <td class="table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600 h-[72px] px-4 py-2 w-60 text-[#5c748a] text-sm font-bold leading-normal tracking-[0.015em]">
+                        Download Challenge
+                      </td>
+                    </tr>
+                  </tbody> -->
+                </table>
+              </div>
+              <style>
+                          @container(max-width:120px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120{display: none;}}
+                @container(max-width:240px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240{display: none;}}
+                @container(max-width:360px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360{display: none;}}
+                @container(max-width:480px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480{display: none;}}
+                @container(max-width:600px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600{display: none;}}
+              </style>
+            </div>
+          </div>
+        </div>
+         <footer class="flex justify-center">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/">Home</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/live">Live Detection</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/challen">Challen</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/diagram">Diagrams</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/roboflow">Upload Robflow</a>
+              </div>
+              <p class="text-[#49749c] text-base font-normal leading-normal">@2025 DriveSafe. All rights reserved.</p>
+            </footer>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

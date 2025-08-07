@@ -1,0 +1,194 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" />
+
+  <title>Wrong Way Vehicle Detection</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+
+<body>
+  <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden"
+    style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+      <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+        <div class="flex items-center gap-4 text-[#101518]">
+          <div class="size-4">
+            <!-- <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+              </svg> -->
+          </div>
+          <h2 class="text-[#101518] text-lg font-bold leading-tight tracking-[-0.015em]">Wrong Way Vehicle Detection
+          </h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8">
+          <div class="flex items-center gap-9">
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/">Home</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/live">Live Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/twolane">Two Lane Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/challen">Challen</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/roboflow">Upload Robflow</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>
+            
+            <!-- <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>           -->
+          </div>
+
+        </div>
+      </header>
+      <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Contribute
+            to SafeRoute</h2>
+          <div class="flex flex-col p-4">
+            <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#d4dce2] px-6 py-14">
+              <div class="flex max-w-[480px] flex-col items-center gap-2">
+                <p class="text-[#101518] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+                  Upload Video</p>
+                <p class="text-[#101518] text-sm font-normal leading-normal max-w-[480px] text-center">
+                  Share videos of wrong-way driving incidents to help us improve our detection algorithms.
+                </p>
+              </div>
+              <form action="/uploadtwolane" id="uploadForm" method="post" enctype="multipart/form-data"
+                class="flex flex-col items-center gap-2">
+                 <select name="area" required class="mb-2 block w-60 rounded-full border border-[#d4dce2] bg-white px-4 py-2 text-[#101518] text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2563eb]">
+                  <option value="" disabled selected>Select Area Location</option>
+                  <option value="johar">Johar</option>
+                  <option value="gulshan">Gulshan</option>
+                  <option value="shahrefaisal">Shahra-e-Faisal</option>
+                </select>
+                <label class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#eaedf1] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <input type="file" id="videoInput" name="video" accept="video/*" required style="display: none;">
+                  <span class="truncate">Choose File</span>
+                </label>
+               <span id="selectedFileName" class="text-[#49749c] text-sm mt-1">No file chosen</span>
+
+                <button type="submit"
+                  class="mt-2 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#dce8f3] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <i class="fas fa-upload"></i> Upload
+                </button>
+                {% if request.args.get('output_video') %}
+                <video controls class="mt-1 max-w-full rounded-lg shadow-lg">
+                  <source src="{{ url_for('static', filename=request.args.get('output_video')) }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                {% endif %}
+               
+            </div>
+          </div>
+          <!-- <div class="flex px-4 py-3 justify-center">
+            <a href="/live"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#dce8f3] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]">
+              <span class="truncate">View Live Detection Feed</span>
+            </a>
+          </div> -->
+        </div>
+      </div>
+      <footer class="flex justify-center">
+        <div class="flex max-w-[960px] flex-1 flex-col">
+          <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+            <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/">Home</a>
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/live">Live Detection</a>
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/challen">Challen</a>
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/diagram">Diagrams</a>
+              <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/roboflow">Upload
+                Robflow</a>
+            </div>
+            <p class="text-[#49749c] text-base font-normal leading-normal">@2025 DriveSafe. All rights reserved.</p>
+          </footer>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div id="progressModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:9999; backdrop-filter: blur(4px); background:rgba(30, 64, 175, 0.45); align-items:center; justify-content:center;">
+  <div style="background: white; padding: 32px 40px; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.20); min-width:320px; display:flex; flex-direction:column; align-items:center;">
+    <div style="font-size:1.4rem; color:#1e40af; margin-bottom:18px;">Processing Video...<span id="processingFileName"></span></div>
+    <div style="width: 100%; background: #e0e0e0; border-radius: 8px; margin-bottom: 8px;">
+      <div id="progressBar" style="width: 0%; height: 24px; background: #2563eb; border-radius: 8px; transition: width 0.2s;"></div>
+    </div>
+    <div id="progressText" style="color:#2563eb; margin-bottom:18px;">0%</div>
+    <button id="cancelUploadBtn" style="padding:10px 24px; background:#1e40af; color:#fff; border:none; border-radius:6px; font-size:1rem; cursor:pointer;">Cancel</button>
+  </div>
+</div>
+  <!-- <div id="uploadOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(30, 64, 175, 0.95); z-index:9999; align-items:center; justify-content:center; flex-direction:column;">
+  <div style="color:white; font-size:2rem; margin-bottom:20px;">Uploading, please wait...</div>
+  <div class="loader" style="border:8px solid #f3f3f3; border-top:8px solid #3498db; border-radius:50%; width:60px; height:60px; animation:spin 1s linear infinite; margin-bottom:20px;"></div>
+  <button id="cancelUploadBtn" style="padding:10px 24px; background:#fff; color:#1e40af; border:none; border-radius:6px; font-size:1rem; cursor:pointer;">Cancel</button> -->
+</div>
+<style>
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('form[action="/uploadtwolane"]');
+  const selectedFileName = document.getElementById('selectedFileName');
+  const processingFileName = document.getElementById('processingFileName');
+  const videoInput = document.getElementById('videoInput');
+  const progressModal = document.getElementById('progressModal');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  const cancelBtn = document.getElementById('cancelUploadBtn');
+  let jobId = null;
+  let controller = null;
+  let fileName = '';
+  if (!form) return;
+
+    // Show selected file name
+  videoInput.addEventListener('change', function() {
+    fileName = videoInput.files[0] ? videoInput.files[0].name : 'No file chosen';
+    selectedFileName.textContent = fileName;
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    progressModal.style.display = 'flex';
+    processingFileName.textContent = fileName || '...';
+
+    const formData = new FormData(form);
+    controller = new AbortController();
+
+    fetch('/uploadtwolane', { method: 'POST', body: formData, signal: controller.signal })
+      .then(res => res.json())
+      .then(data => {
+        jobId = data.job_id;
+        pollProgress();
+      });
+  });
+
+ cancelBtn.addEventListener('click', function() {
+  if (controller) controller.abort();
+  progressModal.style.display = 'none';
+  // Optionally: send a cancel request to the backend if you support it
+  if (jobId) fetch('/cancel_detection/' + jobId, { method: 'POST' });
+  // Reload or redirect to home
+  window.location.href = '/twolane';
+});
+
+  function pollProgress() {
+    fetch('/progress/' + jobId)
+      .then(res => res.json())
+      .then(data => {
+        const progress = data.progress || 0;
+        progressBar.style.width = progress + '%';
+        progressText.innerText = progress + '%';
+        if (progress < 100) {
+          setTimeout(pollProgress, 500);
+        } else {
+          progressModal.style.display = 'none';
+          window.location.href = '/?output_video=' + encodeURIComponent(data.output_video);
+        }
+      });
+  }
+});
+</script>
+</body>
+
+</html>

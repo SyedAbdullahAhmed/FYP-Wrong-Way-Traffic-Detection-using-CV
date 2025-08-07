@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Wrong Way Vehicle Detection</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#101518]">
+            <div class="size-4">
+             
+            </div>
+            <h2 class="text-[#101518] text-lg font-bold leading-tight tracking-[-0.015em]">Wrong Way Vehicle Detection</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/">Home</a>
+              <a class="text-[#101518] text-sm font-medium leading-normal"  href="/live">Live Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/twolane">Two Lane Detection</a>
+             
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/challen">Challen</a>             
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/roboflow">Upload Robflow</a>   
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>
+            
+            </div>
+            <!-- <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#dce8f3] text-[#101518] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">Download App</span>
+            </button> -->
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#101518] tracking-light text-[32px] font-bold leading-tight">Live Detection</p>
+                <p class="text-[#5c748a] text-sm font-normal leading-normal">
+                  Experience real-time wrong-way driving detection with SafeRoute. Our advanced system uses cutting-edge technology to identify and alert drivers, enhancing road
+                  safety.
+                </p>
+              </div>
+            </div>
+            <div class="p-4">
+              <div
+                class="relative flex items-center justify-center bg-[#dce8f3] bg-cover bg-center aspect-video rounded-xl p-4"
+               
+              >  <img src="{{ url_for('live_feed') }}" alt="Live Video Feed" style="width: 100%; max-width: 800px;">
+                <a href="/">Back to Home</a>
+                <!-- <button class="flex shrink-0 items-center justify-center rounded-full size-16 bg-black/40 text-white">
+                  <div class="text-inherit" data-icon="Play" data-size="24px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </button> -->
+              </div>
+            </div>
+            <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">How It Works</h2>
+            <p class="text-[#101518] text-base font-normal leading-normal pb-3 pt-1 px-4">
+              SafeRoute utilizes a network of strategically placed cameras and sensors to monitor traffic flow. Our intelligent algorithms analyze vehicle movement patterns,
+              instantly detecting any instances of wrong-way driving. Upon detection, the system immediately alerts the driver and nearby authorities, minimizing potential risks
+              and ensuring a safer driving environment for everyone.
+            </p>
+          </div>
+        </div>
+         <footer class="flex justify-center">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+               <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/">Home</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/live">Live Detection</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/challen">Challen</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/diagram">Diagrams</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/roboflow">Upload Robflow</a>
+              </div>
+              <p class="text-[#49749c] text-base font-normal leading-normal">@2025sss DriveSafe. All rights reserved.</p>
+            </footer>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

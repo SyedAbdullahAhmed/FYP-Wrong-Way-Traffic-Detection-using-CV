@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrong Way Vehicle Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="banner">
+        <h1>🚗 Real-Time Wrong Way Vehicle Detection</h1>
+        <p>Using YOLOv8 with a Custom Model</p>
+    </section>
+
+    <!-- Video Upload Section -->
+    <section class="upload-section">
+        <h2>📹 Upload Video for Detection</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit"><i class="fas fa-upload"></i> Upload</button>
+        </form>
+        {% if request.args.get('output_video') %}
+        <div class="video-preview">
+            <h3>Processed Video:</h3>
+            <video controls>
+                <source src="{{ url_for('static', filename=request.args.get('output_video')) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- Live Detection Section -->
+   
+    <section class="live-detection">
+        <h2>🎥 Live Detection</h2>
+        <a href="/live">
+            <button><i class="fas fa-video"></i> Start Live Camera Detection</button>
+        </a>
+    </section>
+    <!-- Challan Table Section -->
+    <section class="challan-section">
+        <h2>📋 Issued Challans</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Vehicle ID</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10:30 AM</td>
+                    <td>ABC123</td>
+                    <td>Main Road</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="roboflow-upload">
+        <h2>📤 Upload Images to Roboflow</h2>
+        <form action="/upload_to_roboflow" method="post">
+            <button type="submit"><i class="fas fa-cloud-upload-alt"></i> Upload to Roboflow</button>
+        </form>
+    </section>
+
+    <!-- Roboflow Deployment Section -->
+    <section class="roboflow-section">
+        <h2>📊 Wrong-Way Vehicles Dataset</h2>
+        <a href="https://app.roboflow.com/your-dataset-link" target="_blank">
+            <button><i class="fas fa-database"></i> View Dataset on Roboflow</button>
+        </a>
+    </section>
+    <section class="challan-generation">
+        <h2>📄 Generate Challans</h2>
+        <form action="/generate_challans" method="post">
+            <button type="submit"><i class="fas fa-file-pdf"></i> Generate Challans</button>
+        </form>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="team-info">
+                <h3>Project Team</h3>
+                <div class="team-members">
+                    <div class="member">
+                        <h4>Students</h4>
+                        <p>John Doe - 2023001</p>
+                        <p>Jane Smith - 2023002</p>
+                        <p>Mike Johnson - 2023003</p>
+                    </div>
+                    <div class="member">
+                        <h4>Advisor</h4>
+                        <p>Prof. Sarah Williams</p>
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="copyright">© 2025 Wrong Way Detection System</p>
+        </div>
+    </footer>
+
+    <script>
+        function openCamera() {
+            alert("Live camera detection started! (You can integrate WebRTC or any live detection script here.)");
+        }
+
+        // Video preview functionality
+        document.getElementById('video-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const videoPreview = document.getElementById('videoPreview');
+                videoPreview.style.display = 'block';
+                videoPreview.src = URL.createObjectURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

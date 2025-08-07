@@ -1,0 +1,330 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Wrong Way Vehicle Detection</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <!-- In <head> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Before </body> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      .dataTables_wrapper{
+        width: 100%;
+        margin: 0 auto;
+      }
+      .dataTables_length{
+        width: 100%;
+      }
+      .chart-container {
+        width: 100%;
+        height: 400px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="relative flex  flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#101518]">
+            <div class="size-4">
+             
+            </div>
+            <h2 class="text-[#101518] text-lg font-bold leading-tight tracking-[-0.015em]">Wrong Way Vehicle Detection</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/">Home</a>
+             <a class="text-[#101518] text-sm font-medium leading-normal"  href="/live">Live Detection</a>
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/twolane">Two Lane Detection</a>
+              
+             <a class="text-[#101518] text-sm font-medium leading-normal" href="/challen">Challen</a>
+           
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="/roboflow">Upload Robflow</a>   
+            <a class="text-[#101518] text-sm font-medium leading-normal" href="/report">Report</a>
+
+            </div>
+           
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#101518] tracking-light text-[32px] font-bold leading-tight">View Reports</p>
+                <p class="text-[#5c748a] text-sm font-normal leading-normal"></p>
+              </div>
+            </div>
+            <div class="flex justify-stretch">
+              <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-start">
+                <form action="/filter_report" method="post" class="flex items-end gap-3 flex-wrap">
+                  <div class="flex flex-col">
+                    <label for="start_date" class="text-[#5c748a] text-xs font-medium mb-1">Start Date</label>
+                    <input
+                      type="date"
+                      id="start_date"
+                      name="start_date"
+                      class="rounded-md border border-[#d4dce2] bg-white px-3 py-2 text-sm text-[#101518] focus:outline-none focus:ring-2 focus:ring-[#49749c]"
+                      required
+                      value="{{ start_date if start_date else '' }}"
+                    />
+                  </div>
+                  <div class="flex flex-col">
+                    <label for="end_date" class="text-[#5c748a] text-xs font-medium mb-1">End Date</label>
+                    <input
+                      type="date"
+                      id="end_date"
+                      name="end_date"
+                      class="rounded-md border border-[#d4dce2] bg-white px-3 py-2 text-sm text-[#101518] focus:outline-none focus:ring-2 focus:ring-[#49749c]"
+                      required
+                       value="{{ end_date if end_date else '' }}"
+                    />
+                  </div>
+                  <div class="flex flex-col">
+                    <label for="area" class="text-[#5c748a] text-xs font-medium mb-1">Area</label>
+                    <select id="area" name="area" class="rounded-md border border-[#d4dce2] bg-white px-3 py-2 text-sm text-[#101518] focus:outline-none focus:ring-2 focus:ring-[#49749c]">
+                       <option value="" {% if not area %}selected{% endif %}>All Areas</option>
+                        <option value="johar" {% if area == 'johar' %}selected{% endif %}>Johar</option>
+                        <option value="gulshan" {% if area == 'gulshan' %}selected{% endif %}>Gulshan</option>
+                        <option value="shahrefaisal" {% if area == 'shahrefaisal' %}selected{% endif %}>Shahra-e-Faisal</option>
+                      </select>
+                  </div>
+                  <button
+                    type="submit"
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#49749c] text-white text-sm font-bold leading-normal tracking-[0.015em] mt-4"
+                  >
+                    <span class="truncate">Filter</span>
+                  </button>
+                </form>    
+              </div>    
+            </div>
+          
+            <div class="px-4 py-3 @container mb-5 mb-32">
+              <div class="flex  rounded-xl border border-[#d4dce2] bg-gray-50 " style="margin-bottom: 20px;">
+               <table id="summaryTable" class="display8 width-full w-100" style="width: 100%;margin-bottom: 20px;">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in data %}
+                    <tr>
+                      <td>{{ row.location }}</td>
+                      <td>{{ row.date }}</td>
+                      <td>{{ row.count }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- Graphical Representation Section -->
+              <div class="mt-8">
+                <h3 class="text-[#101518] text-xl font-bold mb-4">Graphical Representation</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Bar Chart -->
+                  <div class="bg-white p-4 rounded-xl border border-[#d4dce2]">
+                    <h4 class="text-[#101518] text-lg font-semibold mb-3">Violations by Location</h4>
+                    <div class="chart-container">
+                      <canvas id="locationChart"></canvas>
+                    </div>
+                  </div>
+                  
+                  <!-- Line Chart -->
+                  <div class="bg-white p-4 rounded-xl border border-[#d4dce2]">
+                    <h4 class="text-[#101518] text-lg font-semibold mb-3">Violations Over Time</h4>
+                    <div class="chart-container">
+                      <canvas id="timeChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <style>
+              @container(max-width:120px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-120{display: none;}}
+              @container(max-width:240px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-240{display: none;}}
+              @container(max-width:360px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-360{display: none;}}
+              @container(max-width:480px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-480{display: none;}}
+              @container(max-width:600px){.table-d800e5a2-ad86-45db-b4fe-73d38bf5ebb0-column-600{display: none;}}
+            </style>
+          </div>
+        </div>
+      </div>
+    </div>
+     <footer class="flex justify-center mt-5">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/">Home</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/live">Live Detection</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/challen">Challen</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/diagram">Diagrams</a>
+                <a class="text-[#49749c] text-base font-normal leading-normal min-w-40" href="/roboflow">Upload Robflow</a>
+              </div>
+              <p class="text-[#49749c] text-base font-normal leading-normal">@2025 DriveSafe. All rights reserved.</p>
+            </footer>
+          </div>
+        </footer>
+        <script>
+  $(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#summaryTable').DataTable();
+    
+    // Chart instances
+    var locationChart = null;
+    var timeChart = null;
+    
+    // Extract data from the table for charts
+    function extractChartData() {
+      var locations = {};
+      var dates = {};
+      
+      table.rows().data().each(function(row) {
+        var location = row[0];
+        var date = row[1];
+        var count = parseInt(row[2]);
+        
+        // Aggregate by location
+        if (!locations[location]) {
+          locations[location] = 0;
+        }
+        locations[location] += count;
+        
+        // Aggregate by date
+        if (!dates[date]) {
+          dates[date] = 0;
+        }
+        dates[date] += count;
+      });
+      
+      return {
+        locations: locations,
+        dates: dates
+      };
+    }
+    
+    // Create charts
+    function createCharts() {
+      var chartData = extractChartData();
+      
+      // Destroy existing charts if they exist
+      if (locationChart) {
+        locationChart.destroy();
+      }
+      if (timeChart) {
+        timeChart.destroy();
+      }
+      
+      // Location Chart (Bar)
+      var locationCtx = document.getElementById('locationChart').getContext('2d');
+      locationChart = new Chart(locationCtx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(chartData.locations),
+          datasets: [{
+            label: 'Number of Violations',
+            data: Object.values(chartData.locations),
+            backgroundColor: [
+              'rgba(73, 116, 156, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(255, 99, 132, 0.7)'
+            ],
+            borderColor: [
+              'rgba(73, 116, 156, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Violations'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Location'
+              }
+            }
+          }
+        }
+      });
+      
+      // Time Chart (Line)
+      var timeCtx = document.getElementById('timeChart').getContext('2d');
+      
+      // Sort dates chronologically
+      var sortedDates = Object.keys(chartData.dates).sort();
+      var sortedCounts = sortedDates.map(date => chartData.dates[date]);
+      
+      timeChart = new Chart(timeCtx, {
+        type: 'line',
+        data: {
+          labels: sortedDates,
+          datasets: [{
+            label: 'Violations Over Time',
+            data: sortedCounts,
+            backgroundColor: 'rgba(73, 116, 156, 0.2)',
+            borderColor: 'rgba(73, 116, 156, 1)',
+            borderWidth: 2,
+            tension: 0.1,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Violations'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Initial chart creation
+    createCharts();
+    
+    // Redraw charts when table data changes (filtering, pagination, etc.)
+    table.on('draw', function() {
+      createCharts();
+    });
+  });
+</script>
+   
+  </body>
+</html>
